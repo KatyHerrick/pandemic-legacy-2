@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "test": "mocha tests/*.js"
+  },
+  "dependencies": {
+    "async": "^2.6.1",
+    "inquirer": "^5.2.0",
+    "mocha": "^5.2.0"
+  }
+}
