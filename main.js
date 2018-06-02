@@ -10,6 +10,7 @@ class Game {
     this.infectionDeck = infectionDeck;
     this.playerCardTypes = Object.keys(playerDeck);
     this.infectionCardTypes = Object.keys(infectionDeck);
+    this.epidemicSlices = [];
   }
 
   setUp(callback) {
@@ -51,8 +52,13 @@ class Game {
         let infectionCards = answers.infectionCards.split(' ');
         DrawStep.initialDraw(this, playerCards);
         InfectStep.initialDraw(this, infectionCards);
+        this.initialize();
         callback();
       })
+  }
+
+  initialize() {
+    DrawStep.initSlices(this);
   }
 
   play() {
