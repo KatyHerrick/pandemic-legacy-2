@@ -5,4 +5,4 @@ module.exports = {
       self.infectionDeck[card]--;
     }
   }
-}
+};

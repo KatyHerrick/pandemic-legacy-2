@@ -50,7 +50,7 @@ describe('DrawStep', () => {
     it('should create an array whose sum is the total number of cards', () => {
       const sumHelper = (object) => {
         return Object.values(object).reduce( (accum, curValue) => accum + curValue);
-      }
+      };
       const expectedResult = sumHelper(mockGame.playerDeck);
       DrawStep.initSlices(mockGame);
       const actualResult = sumHelper(mockGame.epidemicSlices);
@@ -64,4 +64,4 @@ describe('DrawStep', () => {
 
   });
 
-})
+});

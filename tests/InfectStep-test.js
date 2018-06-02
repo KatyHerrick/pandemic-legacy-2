@@ -8,7 +8,7 @@ describe('initialDraw', () => {
       'ny': 3,
       'was': 3,
       'jac': 3
-    }
+    };
   });
   afterEach(() => {
     game = {};
@@ -34,4 +34,4 @@ describe('initialDraw', () => {
     InfectStep.initialDraw(game, mockCards);
     assert.deepEqual(game.infectionDeck, expectedResult);
   });
-})
+});

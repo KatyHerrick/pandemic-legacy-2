@@ -21,7 +21,7 @@ class Game {
         message: 'First 8 player cards: ',
         validate: (value) => {
           let cards = value.split('');
-          if (cards.length !== 8) { return 'You must draw 8 cards.'};
+          if (cards.length !== 8) { return 'You must draw 8 cards.';};
           for (let card of cards) {
             if (this.playerCardTypes.includes(card) === false) {
               return `"${card}" is not a valid card type.`;
@@ -54,7 +54,7 @@ class Game {
         InfectStep.initialDraw(this, infectionCards);
         this.initialize();
         callback();
-      })
+      });
   }
 
   initialize() {
@@ -69,7 +69,7 @@ class Game {
         message: 'Player cards drawn: (Blue/b, Yellow/y, Black/k, Rationed/r, Produce/p, Epidemic/e)',
         validate: (value) => {
           let cards = value.split('');
-          if (cards.length !== 2) { return 'You must draw 2 cards.'};
+          if (cards.length !== 2) { return 'You must draw 2 cards.';};
           for (let card of cards) {
             if (this.playerCardTypes.includes(card) === false) {
               return `"${card}" is not a valid card type.`;
@@ -99,7 +99,7 @@ class Game {
         .then(() => {
           loop();
         });
-    }
+    };
 
     loop();
   }

@@ -16,6 +16,7 @@
   "extends": ["eslint:recommended", "prettier"],
   "rules": {
     "indent": ["error", 2],
-    "quotes": ["error", "single", { "avoidEscape": true }]
+    "quotes": ["error", "single", { "avoidEscape": true }],
+    "semi": ["error", "always"]
   }
 }

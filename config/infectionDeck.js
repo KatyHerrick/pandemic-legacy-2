@@ -19,4 +19,4 @@ module.exports = {
   'mex': 2,
   'par': 2,
   'stp': 1
-}
+};
