@@ -1,10 +1,10 @@
 // Fill in this file at the end of each game
 
 module.exports = {
-  'b': 10,
-  'y': 20,
-  'k': 30,
-  'r': 0,
-  'p': 5,
-  'e': 7
+  'b': 24,
+  'y': 17,
+  'k': 12,
+  'r': 6,
+  'p': 8,
+  'e': 8
 };
