@@ -1,5 +1,4 @@
 // Fill in this file at the end of each game
-
 module.exports = {
   'ny': 3,
   'was': 3,

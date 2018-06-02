@@ -1,10 +1,8 @@
-const async = require('async');
 const inquirer = require('inquirer');
 const playerDeck = require('./config/playerDeck');
 const infectionDeck = require('./config/infectionDeck');
 const DrawStep = require('./DrawStep');
 const InfectStep = require('./InfectStep');
-
 
 class Game {
   constructor() {
@@ -22,7 +20,7 @@ class Game {
         message: 'First 8 player cards: ',
         validate: (value) => {
           let cards = value.split('');
-          if (cards.length !== 8) { return "You must draw 8 cards."};
+          if (cards.length !== 8) { return 'You must draw 8 cards.'};
           for (let card of cards) {
             if (this.playerCardTypes.includes(card) === false) {
               return `"${card}" is not a valid card type.`;
@@ -48,14 +46,13 @@ class Game {
     ];
 
     inquirer.prompt(questions)
-    .then(answers => {
-      let playerCards = answers.playerCards.split('');
-      let infectionCards = answers.infectionCards.split(' ');
-      DrawStep.initialDraw(this, playerCards);
-      InfectStep.initialDraw(this, infectionCards);
-      console.log(this);
-      callback();
-    })
+      .then(answers => {
+        let playerCards = answers.playerCards.split('');
+        let infectionCards = answers.infectionCards.split(' ');
+        DrawStep.initialDraw(this, playerCards);
+        InfectStep.initialDraw(this, infectionCards);
+        callback();
+      })
   }
 
   play() {
@@ -66,7 +63,7 @@ class Game {
         message: 'Player cards drawn: (Blue/b, Yellow/y, Black/k, Rationed/r, Produce/p, Epidemic/e)',
         validate: (value) => {
           let cards = value.split('');
-          if (cards.length !== 2) { return "You must draw 2 cards."};
+          if (cards.length !== 2) { return 'You must draw 2 cards.'};
           for (let card of cards) {
             if (this.playerCardTypes.includes(card) === false) {
               return `"${card}" is not a valid card type.`;
@@ -93,9 +90,9 @@ class Game {
 
     let loop = () => {
       inquirer.prompt(questions)
-      .then(answers => {
-        loop();
-      });
+        .then(() => {
+          loop();
+        });
     }
 
     loop();
