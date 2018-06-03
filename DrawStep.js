@@ -8,18 +8,35 @@ module.exports = {
 
   initSlices: function(game) {
     const sliceSizes = this._initSliceSizes(game);
-    return sliceSizes;
+    const drawsBySlice = {};
+    for (let i = 0; i < sliceSizes.length; i++) {
+      drawsBySlice[i] = [];
+    }
+    game.sliceSizes = sliceSizes;
+    game.drawsBySlice = drawsBySlice;
+    game.sliceIndex = 0;
   },
 
   // Expects array like ['b', 'b']
   draw: function(game, cards) {
     for (let card of cards) {
+      let sliceIndex = game.sliceIndex;
+      let thisSlice = game.drawsBySlice[sliceIndex];
       game.playerDeck[card]--;
+      thisSlice.push(card);
+      if (thisSlice.length === game.sliceSizes[sliceIndex]) {
+        game.sliceIndex++;
+      }
     }
   },
 
   showStatus: function(game) {
     console.log('== Player Deck ==');
+    const drawsInSlice = game.drawsBySlice[game.sliceIndex];
+    if (game.sliceIndex >= 1) {
+      console.log(`Previous Slice: ${game.drawsBySlice[game.sliceIndex-1]}`);
+    };
+    console.log(`Current Slice: ${drawsInSlice}`);
     const totalCardsLeft = Object.values(game.playerDeck).reduce( (accum, curValue) => accum + curValue);
     for (let [card, numLeft] of Object.entries(game.playerDeck)) {
       let epidemicChance = Math.round(numLeft / totalCardsLeft * 100);

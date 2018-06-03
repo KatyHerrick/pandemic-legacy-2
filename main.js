@@ -10,7 +10,6 @@ class Game {
     this.infectionDeck = infectionDeck;
     this.playerCardTypes = Object.keys(playerDeck);
     this.infectionCardTypes = Object.keys(infectionDeck);
-    this.epidemicSlices = [];
   }
 
   setUp(callback) {
