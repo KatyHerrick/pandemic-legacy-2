@@ -10,6 +10,7 @@
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "inquirer": "^5.2.0",
+    "mathjs": "^4.4.2",
     "mocha": "^5.2.0",
     "prettier": "^1.13.4"
   },

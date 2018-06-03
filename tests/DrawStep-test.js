@@ -82,7 +82,6 @@ describe('DrawStep', () => {
       DrawStep.draw(mockGame, mockCards);
       assert.deepEqual(mockGame.drawsBySlice[1], ['p']);
     });
-
   });
 
   describe('_initSliceSizes', () => {
@@ -105,6 +104,40 @@ describe('DrawStep', () => {
       const result = DrawStep._initSliceSizes(mockGame);
       const difference = Math.max(...result) - Math.min(...result);
       assert.equal(difference, 1);
+    });
+  });
+
+  describe('_calculateEpidemicChance', () => {
+    it('should return 0 if an epidemic has been drawn', () => {
+      mockGame.sliceSizes = [3, 3];
+      mockGame.drawsBySlice = { 0: ['e'], 1: [] };
+      mockGame.sliceIndex = 0;
+      const result = DrawStep._calculateEpidemicChance(mockGame);
+      assert.equal(result, 0);
+    });
+
+    it('should return the proper risk if an epidemic has been drawn, but the next draw will cross an epidemic slice', () => {
+      mockGame.sliceSizes = [3, 3];
+      mockGame.drawsBySlice = { 0: ['e','b'], 1: [] };
+      mockGame.sliceIndex = 0;
+      const result = DrawStep._calculateEpidemicChance(mockGame);
+      assert.equal(result, 33.33);
+    });
+
+    it('should return 100 if an epidemic has not been drawn, but there are only 2 cards left in the slice', () => {
+      mockGame.sliceSizes = [3, 3];
+      mockGame.drawsBySlice = { 0: ['b'], 1: [] };
+      mockGame.sliceIndex = 0;
+      const result = DrawStep._calculateEpidemicChance(mockGame);
+      assert.equal(result, 100);
+    });
+
+    it('should return the proper risk if an epidemic has not been drawn and a new slice will not be crossed', () => {
+      mockGame.sliceSizes = [10, 10];
+      mockGame.drawsBySlice = { 0: ['b','p','b'], 1: [] };
+      mockGame.sliceIndex = 0;
+      const result = DrawStep._calculateEpidemicChance(mockGame);
+      assert.equal(result, 28.57);
     });
   });
 

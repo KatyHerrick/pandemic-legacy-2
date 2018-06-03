@@ -1,3 +1,5 @@
+const math = require('mathjs');
+
 module.exports = {
   // Expects array like ['b', 'b', 'r', 'p']
   initialDraw: function (game, initialCards) {
@@ -39,8 +41,28 @@ module.exports = {
     console.log(`Current Slice: ${drawsInSlice}`);
     const totalCardsLeft = Object.values(game.playerDeck).reduce( (accum, curValue) => accum + curValue);
     for (let [card, numLeft] of Object.entries(game.playerDeck)) {
-      let epidemicChance = Math.round(numLeft / totalCardsLeft * 100);
-      console.log(`${card}: ${numLeft}/${totalCardsLeft} (${epidemicChance}%)`);
+      let percentageOfDeck = Math.round(numLeft / totalCardsLeft * 100);
+      console.log(`${card}: ${numLeft}/${totalCardsLeft} (${percentageOfDeck}%)`);
+    }
+    const epidemicChance = this._calculateEpidemicChance(game);
+    console.log(`Epidemic Chance next turn: ${epidemicChance}%`);
+  },
+
+  _calculateEpidemicChance: function(game) {
+    const sliceIndex = game.sliceIndex;
+    const drawsInSlice = game.drawsBySlice[sliceIndex];
+    const numCardsLeftInSlice = game.sliceSizes[sliceIndex] - drawsInSlice.length;
+    if (drawsInSlice.includes('e')) {
+      if (numCardsLeftInSlice >= 2) { return 0; }
+      else { return (1 / game.sliceSizes[sliceIndex + 1] * 100).toFixed(2); }
+    } else {
+      if (numCardsLeftInSlice === 2) { return 100; }
+      else {
+        const epidemicCombinations = numCardsLeftInSlice - 1;
+        const allCombinations = math.combinations(numCardsLeftInSlice, 2);
+        const epidemicChance = (epidemicCombinations / allCombinations * 100).toFixed(2);
+        return epidemicChance;
+      }
     }
   },
 
