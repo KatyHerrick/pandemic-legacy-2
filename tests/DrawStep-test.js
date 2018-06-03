@@ -61,7 +61,20 @@ describe('DrawStep', () => {
       DrawStep.initSlices(mockGame);
       assert.equal(mockGame.epidemicSlices.length, 8);
     });
-
   });
+
+  describe('draw', () => {
+    it('should remove the given cards from the playerDeck', () => {
+      const mockCards = ['b','b'];
+      const expectedResult = { 'b': 22, 'y': 17, 'k': 12, 'r': 6, 'p': 8, 'e': 8 };
+      DrawStep.draw(mockGame, mockCards);
+      assert.deepEqual(mockGame.playerDeck, expectedResult);
+    });
+
+    it('should remove cards across epidemic slices', () => {
+      // TODO
+    });
+  });
+
 
 });

@@ -96,7 +96,9 @@ class Game {
 
     let loop = () => {
       inquirer.prompt(questions)
-        .then(() => {
+        .then((answers) => {
+          DrawStep.draw(this, answers.playerCards.split(''));
+          DrawStep.showStatus(this);
           loop();
         });
     };
