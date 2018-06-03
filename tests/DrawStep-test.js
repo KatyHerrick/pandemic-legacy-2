@@ -42,25 +42,11 @@ describe('DrawStep', () => {
   });
 
   describe('initSlices', () => {
-    it('should create an array the length of the number of epidemics', () => {
-      DrawStep.initSlices(mockGame);
-      assert.equal(mockGame.epidemicSlices.length, mockGame.playerDeck.e);
+    it('should return an array', () => {
+      const result = DrawStep.initSlices(mockGame);
+      assert.deepEqual(result, [ 10, 10, 10, 9, 9, 9, 9, 9 ]);
     });
 
-    it('should create an array whose sum is the total number of cards', () => {
-      const sumHelper = (object) => {
-        return Object.values(object).reduce( (accum, curValue) => accum + curValue);
-      };
-      const expectedResult = sumHelper(mockGame.playerDeck);
-      DrawStep.initSlices(mockGame);
-      const actualResult = sumHelper(mockGame.epidemicSlices);
-      assert.equal(actualResult, expectedResult);
-    });
-
-    it('should create piles of almost the same length', () => {
-      DrawStep.initSlices(mockGame);
-      assert.equal(mockGame.epidemicSlices.length, 8);
-    });
   });
 
   describe('draw', () => {
@@ -76,5 +62,27 @@ describe('DrawStep', () => {
     });
   });
 
+  describe('_initSliceSizes', () => {
+    it('should create an array the length of the number of epidemics', () => {
+      const result = DrawStep._initSliceSizes(mockGame);
+      assert.equal(result.length, mockGame.playerDeck.e);
+    });
+
+    it('should create an array whose sum is the total number of cards', () => {
+      const sumHelper = (object) => {
+        return Object.values(object).reduce( (accum, curValue) => accum + curValue);
+      };
+      const expectedResultSum = sumHelper(mockGame.playerDeck);
+      const result = DrawStep._initSliceSizes(mockGame);
+      const resultSum = sumHelper(result);
+      assert.equal(resultSum, expectedResultSum);
+    });
+
+    it('should create piles of almost the same length', () => {
+      const result = DrawStep._initSliceSizes(mockGame);
+      const difference = Math.max(...result) - Math.min(...result);
+      assert.equal(difference, 1);
+    });
+  });
 
 });

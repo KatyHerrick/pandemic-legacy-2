@@ -7,18 +7,8 @@ module.exports = {
   },
 
   initSlices: function(self) {
-    const totalCards = Object.values(self.playerDeck).reduce( (accum, curValue) => accum + curValue);
-    const numPiles = self.playerDeck.e;
-    const smallPileSize = Math.floor(totalCards / numPiles);
-    const bigPileSize = smallPileSize + 1;
-    const numBigPiles = totalCards % (numPiles * smallPileSize);
-    const numSmallPiles = numPiles - numBigPiles;
-    for (let i = 0; i < numBigPiles; i++) {
-      self.epidemicSlices.push(bigPileSize);
-    }
-    for (let i = 0; i < numSmallPiles; i++) {
-      self.epidemicSlices.push(smallPileSize);
-    }
+    const sliceSizes = this._initSliceSizes(self);
+    return sliceSizes;
   },
 
   // Expects array like ['b', 'b']
@@ -35,6 +25,22 @@ module.exports = {
       let epidemicChance = Math.round(numLeft / totalCardsLeft * 100);
       console.log(`${card}: ${numLeft}/${totalCardsLeft} (${epidemicChance}%)`);
     }
-  }
+  },
 
+  _initSliceSizes: function(game) {
+    const totalCards = Object.values(game.playerDeck).reduce( (accum, curValue) => accum + curValue);
+    const numPiles = game.playerDeck.e;
+    const smallPileSize = Math.floor(totalCards / numPiles);
+    const bigPileSize = smallPileSize + 1;
+    const numBigPiles = totalCards % (numPiles * smallPileSize);
+    const numSmallPiles = numPiles - numBigPiles;
+    let sliceSizes = [];
+    for (let i = 0; i < numBigPiles; i++) {
+      sliceSizes.push(bigPileSize);
+    }
+    for (let i = 0; i < numSmallPiles; i++) {
+      sliceSizes.push(smallPileSize);
+    }
+    return sliceSizes;
+  }
 };
