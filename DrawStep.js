@@ -1,27 +1,27 @@
 module.exports = {
   // Expects array like ['b', 'b', 'r', 'p']
-  initialDraw: function (self, initialCards) {
+  initialDraw: function (game, initialCards) {
     for (let card of initialCards) {
-      self.playerDeck[card]--;
+      game.playerDeck[card]--;
     }
   },
 
-  initSlices: function(self) {
-    const sliceSizes = this._initSliceSizes(self);
+  initSlices: function(game) {
+    const sliceSizes = this._initSliceSizes(game);
     return sliceSizes;
   },
 
   // Expects array like ['b', 'b']
-  draw: function(self, cards) {
+  draw: function(game, cards) {
     for (let card of cards) {
-      self.playerDeck[card]--;
+      game.playerDeck[card]--;
     }
   },
 
-  showStatus: function(self) {
+  showStatus: function(game) {
     console.log('== Player Deck ==');
-    const totalCardsLeft = Object.values(self.playerDeck).reduce( (accum, curValue) => accum + curValue);
-    for (let [card, numLeft] of Object.entries(self.playerDeck)) {
+    const totalCardsLeft = Object.values(game.playerDeck).reduce( (accum, curValue) => accum + curValue);
+    for (let [card, numLeft] of Object.entries(game.playerDeck)) {
       let epidemicChance = Math.round(numLeft / totalCardsLeft * 100);
       console.log(`${card}: ${numLeft}/${totalCardsLeft} (${epidemicChance}%)`);
     }
