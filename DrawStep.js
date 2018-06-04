@@ -34,6 +34,7 @@ module.exports = {
 
   showStatus: function(game) {
     console.log('== Player Deck ==');
+    console.log(`Epidemic Chance next turn: ${epidemicChance}%`);
     const drawsInSlice = game.drawsBySlice[game.sliceIndex];
     if (game.sliceIndex >= 1) {
       console.log(`Previous Slice: ${game.drawsBySlice[game.sliceIndex-1]}`);
@@ -45,7 +46,6 @@ module.exports = {
       console.log(`${card}: ${numLeft}/${totalCardsLeft} (${percentageOfDeck}%)`);
     }
     const epidemicChance = this._calculateEpidemicChance(game);
-    console.log(`Epidemic Chance next turn: ${epidemicChance}%`);
   },
 
   _calculateEpidemicChance: function(game) {

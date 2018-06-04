@@ -49,15 +49,13 @@ class Game {
       .then(answers => {
         let playerCards = answers.playerCards.split('');
         let infectionCards = answers.infectionCards.split(' ');
-        DrawStep.initialDraw(this, playerCards);
+        InfectStep.initDiscardHistory(this);
         InfectStep.initialDraw(this, infectionCards);
-        this.initialize();
+        DrawStep.initialDraw(this, playerCards);
+        DrawStep.initSlices(this);
+
         callback();
       });
-  }
-
-  initialize() {
-    DrawStep.initSlices(this);
   }
 
   play() {
@@ -98,6 +96,8 @@ class Game {
         .then((answers) => {
           DrawStep.draw(this, answers.playerCards.split(''));
           DrawStep.showStatus(this);
+          InfectStep.draw(this, answers.infectionCards.split(' '));
+          InfectStep.showStatus(this);
           loop();
         });
     };
